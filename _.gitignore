@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+build/
+dist/
+
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+
+# Notebooks
+.ipynb_checkpoints/
+
+# Generated output (documentation produced for repositories you analyze)
+output/
+
+# Editors and OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
