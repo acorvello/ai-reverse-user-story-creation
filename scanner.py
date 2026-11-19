@@ -96,6 +96,15 @@ def line_count(root: str | Path, rel_path: str) -> int:
     return len(target.read_text(encoding="utf-8", errors="replace").splitlines())
 
 
+def read_prefix(root: str | Path, rel_path: str, max_chars: int) -> str:
+    """Read at most max_chars from a source file inside the repository."""
+    if max_chars < 0:
+        raise ValueError("max_chars must not be negative")
+    target = _resolve_inside(root, rel_path)
+    with target.open(encoding="utf-8", errors="replace") as source:
+        return source.read(max_chars)
+
+
 def read_lines(root: str | Path, rel_path: str, start: int = 1, end: int | None = None) -> list[tuple[int, str]]:
     """Read a line range as (line_number, text) pairs. Line numbers start at 1."""
     target = _resolve_inside(root, rel_path)

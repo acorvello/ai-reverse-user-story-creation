@@ -25,6 +25,7 @@ It is useful when a system has code but no documentation: legacy applications, i
 * [Output Format](#-output-format)
 * [Capabilities](#-capabilities)
 * [Getting Started](#-getting-started)
+* [Interface web local](#interface-web-local)
 * [Design Goals](#-design-goals)
 * [Tech Stack](#%EF%B8%8F-tech-stack)
 * [Roadmap](#%EF%B8%8F-roadmap)
@@ -153,17 +154,33 @@ pip install -r requirements.txt
 python -m unittest discover -s tests -v
 ```
 
+### Interface web local
+
+Com Python 3.10+ instalado, execute `start-app.cmd` ou inicie-o pelo PowerShell:
+
+```powershell
+.\start-app.cmd
+```
+
+O inicializador inicia o servidor local e abre `http://127.0.0.1:8765` no navegador padrão. Se preferir, execute `python app.py` e acesse esse endereço manualmente. Na opção **Analisar repositório**, informe o caminho completo da pasta que deseja inspecionar. A interface usa o scanner existente para listar arquivos de código, respeitando os filtros de pastas, tamanho e nomes sensíveis. O servidor aceita conexões somente da própria máquina.
+
+As configurações do scanner e do Ollama são editáveis na tela **Configurações** e salvas em `conf/settings.json`. Use **Testar conexão** para validar o endereço local do Ollama e carregar os modelos compatíveis com geração. A interface verifica a conexão ao iniciar e ao testar manualmente; o painel lateral mostra o status conectado em verde ou desconectado em vermelho. Se o modelo salvo continuar disponível, ele permanece selecionado; caso contrário, o primeiro modelo compatível é selecionado. Salve a escolha com **Salvar configurações**. O servidor lê e valida o JSON ao iniciar; se ele não existir, cria um com os valores padrão.
+
+Para gerar o dataset, mantenha o Ollama ativo no endereço local configurado e selecione um modelo de geração. Após inspecionar um repositório, selecione **Gerar dataset CSV**. A saída tem uma linha por feature extraída, sem expansão sintética, e as colunas `id`, `modulo`, `nome_da_feature`, `action` e `registro_padrao`. Os arquivos são gravados em `datasets/` com o nome `<repositorio>_<AAAAMMDD_HHMMSS>.csv`.
+
 ### Project structure
 
 ```text
 ai-reverse-user-story-creation/
-├── ai_reverse_user_story/
-│   ├── models.py        # Feature, UserStory, BusinessRule, Evidence
-│   ├── scanner.py       # repository scanner and safe file reading
-│   └── verify.py        # evidence verification
-├── tests/
-├── notebooks/
-│   └── 01_prototype_user_story_dataset.ipynb
+├── app.py               # local web server and configuration loading
+├── conf/
+│   └── settings.json    # persisted scanner settings
+├── datasets/            # generated CSV exports
+├── models.py
+├── scanner.py
+├── verify.py
+├── web/                 # browser interface
+├── start-app.cmd
 ├── requirements.txt
 └── LICENSE
 ```

@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f6f7fb">
+    <meta
+      name="description"
+      content="Inspecione repositórios localmente e prepare a documentação de regras de negócio."
+    >
+    <title>AI Reverse User Story Creation</title>
+    <link rel="stylesheet" href="/styles.css">
+    <script src="/app.js" defer></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Navegação principal">
+        <a class="brand" href="#overview" aria-label="AI Reverse User Story Creation">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 32 32" fill="none">
+              <path d="M7 8.5 16 4l9 4.5v10L16 28l-9-9.5v-10Z" />
+              <path d="m11.5 15.8 3 3.1 6-6.5" />
+            </svg>
+          </span>
+          <span class="brand-name">AI Reverse <span>User Story</span></span>
+        </a>
+
+        <div class="workspace-card">
+          <span class="workspace-icon">R</span>
+          <span class="workspace-copy">
+            <span class="workspace-label">WORKSPACE</span>
+            <span class="workspace-name">Repositório local</span>
+          </span>
+        </div>
+
+        <p class="nav-caption">WORKSPACE</p>
+        <nav class="primary-nav">
+          <button class="nav-link active" type="button" data-page="overview" aria-current="page">
+            <svg viewBox="0 0 20 20" aria-hidden="true">
+              <path d="m3 8 7-5 7 5v8a1 1 0 0 1-1 1h-4v-5H8v5H4a1 1 0 0 1-1-1V8Z" />
+            </svg>
+            Visão geral
+          </button>
+          <button class="nav-link" type="button" data-page="analyze">
+            <svg viewBox="0 0 20 20" aria-hidden="true">
+              <path d="M3 4h14v12H3z" />
+              <path d="m7 8 2 2-2 2m4 0h3" />
+            </svg>
+            Analisar repositório
+          </button>
+          <button class="nav-link" type="button" data-page="history">
+            <svg viewBox="0 0 20 20" aria-hidden="true">
+              <path d="M4 3.5h8l4 4V16a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V3.5Z" />
+              <path d="M12 3.5v4h4M7 11h6M7 14h4" />
+            </svg>
+            Histórico de análises
+          </button>
+          <button class="nav-link" type="button" data-page="settings">
+            <svg viewBox="0 0 20 20" aria-hidden="true">
+              <circle cx="10" cy="10" r="3" />
+              <path d="m16 11.5 1-1.5-1-1.5-1.8-.3-.8-1.6.7-1.7L12 4l-1.5 1-1.5-1-2.1.9.7 1.7-.8 1.6-1.8.3-1 1.5 1 1.5 1.8.3.8 1.6-.7 1.7 2.1.9 1.5-1 1.5 1 2.1-.9-.7-1.7.8-1.6 1.8-.3Z" />
+            </svg>
+            Configurações
+          </button>
+        </nav>
+
+        <div class="sidebar-footer">
+          <div class="local-status">
+            <span class="status-dot" aria-hidden="true"></span>
+            <span>
+              <strong>Execução local</strong>
+              <small>Os arquivos não saem da máquina</small>
+            </span>
+          </div>
+          <div
+            class="local-status ollama-status"
+            id="ollama-status"
+            data-state="disconnected"
+            role="status"
+            aria-live="polite"
+          >
+            <span class="status-dot" aria-hidden="true"></span>
+            <span>
+              <strong>Ollama</strong>
+              <small id="ollama-status-text">Não conectado</small>
+            </span>
+          </div>
+          <div class="profile">
+            <span class="avatar">QA</span>
+            <span class="profile-copy">
+              <strong>Projeto de QA</strong>
+              <small>Workspace pessoal</small>
+            </span>
+          </div>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <header class="topbar">
+          <div class="breadcrumbs">
+            <span>Workspace</span>
+            <span class="breadcrumb-separator" aria-hidden="true">›</span>
+            <span id="breadcrumb-current">Visão geral</span>
+          </div>
+          <span class="workspace-status"><span aria-hidden="true"></span> Workspace local</span>
+        </header>
+
+        <div class="page-content">
+          <section class="page-view" data-view="overview">
+            <div class="page-heading">
+              <p class="eyebrow">ENGENHARIA REVERSA</p>
+              <h1>AI Reverse User Story Creation</h1>
+              <p class="page-description">
+                Explore o código, encontre evidências e prepare a documentação das regras de negócio — tudo localmente.
+              </p>
+            </div>
+
+            <article class="welcome-card">
+              <span class="feature-icon" aria-hidden="true">
+                <svg viewBox="0 0 32 32" fill="none">
+                  <path d="M7 8.5 16 4l9 4.5v10L16 28l-9-9.5v-10Z" />
+                  <path d="m11.5 15.8 3 3.1 6-6.5" />
+                </svg>
+              </span>
+              <div class="welcome-copy">
+                <h2>Comece pelo seu repositório</h2>
+                <p>Identifique arquivos de código relevantes antes de documentar histórias e regras com evidências.</p>
+              </div>
+              <button class="button button-primary" type="button" data-go="analyze">Analisar repositório</button>
+            </article>
+
+            <section class="overview-grid" aria-label="Resumo da última análise">
+              <article class="summary-card">
+                <span class="summary-icon lavender" aria-hidden="true">⌘</span>
+                <div><p>Última análise</p><strong id="overview-date">Ainda não analisado</strong></div>
+              </article>
+              <article class="summary-card">
+                <span class="summary-icon blue" aria-hidden="true">▤</span>
+                <div><p>Arquivos identificados</p><strong id="overview-files">—</strong></div>
+              </article>
+              <article class="summary-card">
+                <span class="summary-icon green" aria-hidden="true">⌁</span>
+                <div><p>Repositório</p><strong id="overview-root" class="summary-path">Nenhum selecionado</strong></div>
+              </article>
+            </section>
+
+            <section class="info-panel">
+              <div>
+                <p class="eyebrow">PRÓXIMA ETAPA</p>
+                <h2>Do código ao dataset de features</h2>
+                <p>
+                  Inspecione um repositório e gere um CSV com features e actions extraídas pelo Ollama local.
+                </p>
+              </div>
+              <span class="planned-badge">Saída CSV · uma linha por feature</span>
+            </section>
+          </section>
+
+          <section class="page-view" data-view="analyze" hidden>
+            <div class="page-heading">
+              <p class="eyebrow">INSPEÇÃO DO CÓDIGO</p>
+              <h1>Analisar repositório</h1>
+              <p class="page-description">
+                Informe o caminho de uma pasta local. O scanner lista arquivos de código compatíveis e ignora diretórios comuns de dependências.
+              </p>
+            </div>
+
+            <form class="scan-card" id="scan-form">
+              <label for="repository-path">Caminho do repositório</label>
+              <p class="field-help">Use o caminho completo da pasta que deseja inspecionar.</p>
+              <div class="scan-controls">
+                <span class="path-icon" aria-hidden="true">⌕</span>
+                <input
+                  id="repository-path"
+                  name="root"
+                  type="text"
+                  placeholder="D:\projetos\meu-repositorio"
+                  autocomplete="off"
+                  required
+                >
+                <button class="button button-primary" id="scan-button" type="submit">
+                  <span class="button-label">Inspecionar código</span>
+                  <span class="button-spinner" aria-hidden="true"></span>
+                </button>
+              </div>
+              <p class="form-feedback" id="scan-feedback" role="status" aria-live="polite">
+                A análise é feita nesta máquina; nenhum arquivo é enviado para serviços externos.
+              </p>
+            </form>
+
+            <section class="results-section" aria-label="Resultado da inspeção">
+              <div class="section-heading">
+                <div>
+                  <p class="eyebrow">RESULTADO</p>
+                  <h2>Arquivos encontrados</h2>
+                </div>
+                <span class="result-count" id="result-count">Aguardando análise</span>
+              </div>
+              <div class="stats-grid" id="scan-stats" hidden>
+                <article class="stat-card"><span>Arquivos</span><strong id="stat-files">0</strong></article>
+                <article class="stat-card"><span>Extensões</span><strong id="stat-extensions">0</strong></article>
+                <article class="stat-card"><span>Tamanho total</span><strong id="stat-size">0 KB</strong></article>
+              </div>
+              <section class="dataset-card" id="dataset-panel" hidden aria-label="Gerar dataset">
+                <div class="dataset-copy">
+                  <p class="eyebrow">EXPORTAÇÃO</p>
+                  <h2>Dataset de features e actions</h2>
+                  <p id="dataset-feedback" role="status" aria-live="polite">
+                    O CSV será salvo na pasta datasets.
+                  </p>
+                </div>
+                <button class="button button-primary" id="generate-dataset" type="button">
+                  <span class="button-label">Gerar dataset CSV</span>
+                  <span class="button-spinner" aria-hidden="true"></span>
+                </button>
+              </section>
+              <div class="file-table-wrap" id="file-table-wrap" hidden>
+                <table class="file-table">
+                  <thead><tr><th>Arquivo</th><th>Tipo</th><th>Tamanho</th></tr></thead>
+                  <tbody id="file-list"></tbody>
+                </table>
+              </div>
+              <div class="empty-state" id="empty-state">
+                <span class="empty-icon" aria-hidden="true">⌕</span>
+                <strong>Nenhum resultado para mostrar</strong>
+                <span>Informe um caminho válido para iniciar a inspeção do código.</span>
+              </div>
+            </section>
+
+            <footer class="content-footer">
+              <span>AI REVERSE USER STORY CREATION <span aria-hidden="true">·</span> QUALIDADE COM EVIDÊNCIAS</span>
+              <span>PROCESSAMENTO LOCAL</span>
+            </footer>
+          </section>
+
+          <section class="page-view" data-view="history" hidden>
+            <div class="page-heading">
+              <p class="eyebrow">ATIVIDADE LOCAL</p>
+              <h1>Histórico de análises</h1>
+              <p class="page-description">Revisite as inspeções feitas nesta sessão do navegador.</p>
+            </div>
+            <div class="history-list" id="history-list"></div>
+            <div class="empty-state history-empty" id="history-empty">
+              <span class="empty-icon" aria-hidden="true">◷</span>
+              <strong>Seu histórico aparecerá aqui</strong>
+              <span>Faça uma inspeção para registrar a atividade desta sessão.</span>
+              <button class="button button-primary" type="button" data-go="analyze">Analisar repositório</button>
+            </div>
+          </section>
+
+          <section class="page-view" data-view="settings" hidden>
+            <div class="page-heading">
+              <p class="eyebrow">PREFERÊNCIAS</p>
+              <h1>Configurações</h1>
+              <p class="page-description">Configure o scanner e o Ollama local usados para analisar e exportar o dataset.</p>
+            </div>
+            <form class="settings-card settings-form" id="settings-form">
+              <div class="settings-form-heading">
+                <span class="settings-symbol" aria-hidden="true">⌘</span>
+                <div>
+                  <h2>Configurações da análise local</h2>
+                  <p>As alterações são salvas em <code>conf/settings.json</code> e carregadas ao iniciar a aplicação.</p>
+                </div>
+              </div>
+              <div class="settings-field">
+                <label for="ollama-base-url">Endereço do Ollama local</label>
+                <input id="ollama-base-url" name="ollama_base_url" type="url" required>
+                <p class="field-help">Por padrão, o Ollama é acessado em http://localhost:11434.</p>
+                <div class="ollama-test-row">
+                  <button class="button button-primary" id="ollama-test" type="button">Testar conexão</button>
+                  <p class="settings-feedback" id="ollama-feedback" role="status" aria-live="polite">
+                    A conexão será verificada ao iniciar e ao testar manualmente.
+                  </p>
+                </div>
+              </div>
+              <div class="settings-field">
+                <label for="ollama-model">Modelo Ollama</label>
+                <select id="ollama-model" name="ollama_model" disabled>
+                  <option value="">Teste a conexão para carregar os modelos.</option>
+                </select>
+                <p class="field-help" id="ollama-model-help">
+                  O modelo escolhido será salvo ao clicar em Salvar configurações.
+                </p>
+              </div>
+              <div class="settings-field">
+                <label for="max-file-bytes">Tamanho máximo por arquivo</label>
+                <div class="settings-number-field">
+                  <input id="max-file-bytes" name="max_file_bytes" type="number" min="1" max="100000000" step="1" required>
+                  <span>bytes</span>
+                </div>
+                <p class="field-help">Valor máximo: 100 MB.</p>
+              </div>
+              <div class="settings-field">
+                <label for="include-extensions">Extensões analisadas</label>
+                <textarea id="include-extensions" name="include_extensions" rows="2" required></textarea>
+                <p class="field-help">Separe as extensões por vírgula e inclua o ponto (ex.: .py, .ts).</p>
+              </div>
+              <div class="settings-field">
+                <label for="ignore-dirs">Pastas ignoradas</label>
+                <textarea id="ignore-dirs" name="ignore_dirs" rows="3"></textarea>
+                <p class="field-help">Informe nomes de pastas separados por vírgula (ex.: .git, node_modules).</p>
+              </div>
+              <div class="settings-field">
+                <label for="sensitive-patterns">Padrões de arquivos sensíveis</label>
+                <textarea id="sensitive-patterns" name="sensitive_patterns" rows="2"></textarea>
+                <p class="field-help">Padrões de nome separados por vírgula (ex.: .env, *.pem).</p>
+              </div>
+              <div class="settings-actions">
+                <button class="button button-primary" id="settings-save" type="submit">Salvar configurações</button>
+                <p class="settings-feedback" id="settings-feedback" role="status" aria-live="polite">
+                  Carregando configurações locais...
+                </p>
+              </div>
+            </form>
+            <div class="settings-note">
+              O filtro por nome não garante que todos os segredos sejam removidos. Revise o repositório e os resultados antes de compartilhá-los.
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

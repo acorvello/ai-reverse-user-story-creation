@@ -1,0 +1,58 @@
+{
+  "scan": {
+    "max_file_bytes": 200000,
+    "include_extensions": [
+      ".cs",
+      ".go",
+      ".html",
+      ".java",
+      ".js",
+      ".jsx",
+      ".kt",
+      ".php",
+      ".py",
+      ".rb",
+      ".sql",
+      ".svelte",
+      ".ts",
+      ".tsx",
+      ".vue"
+    ],
+    "ignore_dirs": [
+      ".git",
+      ".idea",
+      ".next",
+      ".nuxt",
+      ".venv",
+      ".vscode",
+      "__pycache__",
+      "bin",
+      "build",
+      "coverage",
+      "dist",
+      "node_modules",
+      "obj",
+      "out",
+      "target",
+      "vendor",
+      "venv"
+    ],
+    "sensitive_patterns": [
+      ".env",
+      ".env.*",
+      "*.pem",
+      "*.key",
+      "*.p12",
+      "*.pfx",
+      "*.keystore",
+      "id_rsa*",
+      "id_ed25519*",
+      ".npmrc",
+      ".pypirc"
+    ]
+  },
+  "ollama": {
+    "base_url": "http://localhost:11434",
+    "model": "qwen2.5-coder:1.5b"
+  }
+}
